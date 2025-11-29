@@ -1,0 +1,89 @@
+h1 { 
+  font-size: 40px;
+  color: darkred;
+}
+
+.nav_title {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 60px;
+
+  background-color: black(0.5);
+  backdrop-filter: blur(5px);
+
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding-left: 20px;
+
+}
+
+.nav_title nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 17px;
+  margin-right: 25px; 
+}
+
+nav a:hover{
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+nav a{
+  color: white;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.con-borde { /* clase para poner bordes a las imagenes y redondearlas */
+  border: 3px solid rgb(17, 14, 14);
+  border-radius: 8px;
+  margin-top: 51px; 
+}
+
+
+.imagenes-alinear { /* lo uso cada que vez quiero alinear una imagen */
+  text-align: center;
+}
+
+.perks-margen { /*centrar a la derecha las imagenes de perks y que esten en pares de dos*/
+  float: right;
+  margin: 10px;
+  text-align: center;
+  column-count: 2;   /* divide el bloque en 2 columnas */
+  column-gap: 10px;  /* espacio entre columnas */
+}
+
+td:nth-child(2), th:nth-child(2) { /* para alinear los precios de la tabla de perks */
+  text-align: left; 
+}
+
+
+body { /*imagen fija en el fondo y color de letra blanco*/
+  background-image: url("kinodertotenloadscreen.webp");
+  background-size: cover;
+  background-attachment: fixed;
+  color: white;
+}
+
+
+/* todo esto para que las armas esten unas a la izq otras en medio y otras derecha*/
+.armas-iniciales{
+  float: left;
+  width: 20%;
+}
+
+.armas-pared{
+  float: left;
+  width: 30%;
+}
+
+.armas-caja{
+  float: left;
+  width: 30%;
+}
+
+#Curiosidades { /* para que curiosidades no se me meta en medio de armas*/
+    clear: both; }

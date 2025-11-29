@@ -1,0 +1,50 @@
+{
+    "peliculas": [
+        {
+            "titulo": "No Way Home",
+            "director": "Jon Watts",
+            "actores_principales": [
+                { "nombre": "Tom Holland" },
+                { "nombre": "Zendaya" }
+            ],
+            "horario": [
+                {
+                    "sala": "Sala 17",
+                    "horas": [
+                        { "hora": "17:00" },
+                        { "hora": "20:15" }
+                    ]
+                },
+                {
+                    "sala": "Sala 20",
+                    "horas": [
+                        { "hora": "18:00" },
+                        { "hora": "21:15" }
+                    ]
+                }
+            ]
+        },
+        {
+            "titulo": "The Matrix Resurrections",
+            "director": "Lana Wachowski",
+            "actores_principales": [
+                { "nombre": "Keanu Reeves" },
+                { "nombre": "Carrie-Anne Moss" }
+            ],
+            "horario": [
+                {
+                    "sala": "5",
+                    "horas": [
+                        { "hora": "19:15" }
+                    ]
+                },
+                {
+                    "sala": "22",
+                    "horas":[
+                        {"hora": "22:30"}
+                    ]
+                }
+            ]
+        }
+    ]
+}
