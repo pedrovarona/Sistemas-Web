@@ -1,0 +1,28 @@
+{
+  "reservas": [
+    {
+      "id": "R001",
+      "pasajero": {
+        "id": "PA01",
+        "nombre": "Juan Pérez",
+        "email": "juan@email.com"
+      },
+      "vuelo": {
+        "idVuelo": "V100",
+        "origen": "Madrid",
+        "destino": "París",
+        "fecha": "2025-09-10",
+        "asientos": [
+            {
+            "numero": "12A",
+            "clase": "Economy"
+          },
+          {
+            "numero": "12B",
+            "clase": "Economy"
+          }
+        ]
+        }
+    }
+]
+}

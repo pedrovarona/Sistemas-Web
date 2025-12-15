@@ -1,0 +1,30 @@
+{
+  "clientes": [
+    {
+      "id": "CL001",
+      "nombre": "Lucía Torres",
+      "email": "lucia@email.com",
+      "pedidos": [
+        {
+          "id": "P1001",
+          "fechaPedido": "2025-08-01",
+          "total": 89.99,
+          "productos": [
+            {
+              "id": "PR01",
+              "nombre": "Auriculares Bluetooth",
+              "precio": 29.99,
+              "cantidad": 1
+            },
+            {
+              "id": "PR02",
+              "nombre": "Funda para móvil",
+              "precio": 15.00,
+              "cantidad": 2
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
