@@ -1,0 +1,79 @@
+{
+  "pacientes": [
+    {
+      "id": "P001",
+      "nombre": "Ana López",
+      "fechaNacimiento": "1990-04-12",
+      "seguroMedico": "Sanitas",
+      "citas": [
+        {
+          "id": "C1001",
+          "fecha": "2025-05-10",
+          "hora": "10:30",
+          "medico": {
+            "id": "M01",
+            "nombre": "Dr. Carlos Ruiz",
+            "especialidad": "Cardiología"
+          },
+          "diagnostico": {
+            "codigo": "I10",
+            "descripcion": "Hipertensión arterial"
+          },
+          "tratamiento": {
+            "medicamento": "Enalapril",
+            "dosis": "10 mg",
+            "frecuencia": "1 vez al día",
+            "duracionDias": 30
+          }
+        }
+      ]
+    },
+    {
+      "id": "P002",
+      "nombre": "Marcos Fernández",
+      "fechaNacimiento": "1985-09-21",
+      "seguroMedico": "Adeslas",
+      "citas": [
+        {
+          "id": "C2001",
+          "fecha": "2025-06-01",
+          "hora": "09:00",
+          "medico": {
+            "id": "M02",
+            "nombre": "Dra. Laura Gómez",
+            "especialidad": "Dermatología"
+          },
+          "diagnostico": {
+            "codigo": "L20",
+            "descripcion": "Dermatitis atópica"
+          },
+          "tratamiento": {
+            "medicamento": "Crema hidratante",
+            "frecuencia": "2 veces al día",
+            "duracionDias": 15
+          }
+        },
+        {
+          "id": "C2002",
+          "fecha": "2025-07-15",
+          "hora": "11:45",
+          "medico": {
+            "id": "M01",
+            "nombre": "Dr. Carlos Ruiz",
+            "especialidad": "Cardiología"
+          },
+          "diagnostico": {
+            "codigo": "E78",
+            "descripcion": "Hipercolesterolemia"
+          },
+          "tratamiento": {
+            "medicamento": "Atorvastatina",
+            "dosis": "20 mg",
+            "frecuencia": "1 vez al día",
+            "duracionDias": 60
+          }
+        }
+      ]
+    }
+  ]
+}

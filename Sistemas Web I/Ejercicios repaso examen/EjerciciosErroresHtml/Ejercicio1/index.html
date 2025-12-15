@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width">
+
+  <title>Panel de Control</title>
+
+  <link rel="stylesheet" href="css/styles.css">
+
+  <script type="module" src="js/app.js" defer></script>
+  <script type="module" src="js/utils.js" defer></script>
+</head>
+
+<body>
+
+  <header>
+    <h1 id="title" id="main-title">Dashboard</h1>
+
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <section>
+      <h2>Estadísticas</h2>
+
+      <div class="card" id="cardUsers">
+        <p>Usuarios activos: <span id="users"></span></p>
+      </div>
+
+      <div class="card" id="cardSales">
+        <p>Ventas: <span id="sales"></span></p>
+      </div>
+    </section>
+
+    <section>
+      <form id="form">
+        <label form="form">Nombre
+          <input type="text" id="name">
+        </label>
+
+        <label form="form">Email
+          <input type="email" id="email">
+        </label>
+
+        <button type="submit" form="form">Enviar</button>
+      </form>
+    </section>
+
+    <section>
+      <button id="cargarDatos">Cargar datos</button>
+    </section>
+
+  </main>
+
+  <footer>
+    <p id="footerText">
+    <script>
+        document.getElementById("footerText").innerText = "© " + new Date().getFullYear();
+    </script>
+   </footer>
+</body>
+</html>

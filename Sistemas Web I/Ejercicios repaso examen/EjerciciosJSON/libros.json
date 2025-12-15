@@ -1,0 +1,57 @@
+{
+  "libros": [
+    {
+      "titulo": "Cien años de soledad",
+      "anioPublicacion": 1967,
+      "categorias": [
+        "Novela",
+        "Realismo mágico"
+      ],
+      "autor": {
+        "nombre": "Gabriel García Márquez",
+        "nacionalidad": "Colombiana"
+      },
+      "copias": [
+        {
+          "codigo": "CA001",
+          "estado": "disponible"
+        },
+        {
+          "codigo": "CA002",
+          "estado": "prestado"
+        }
+      ],
+      "prestamos": [
+        {
+          "usuario": "Laura Pérez",
+          "codigoCopia": "CA002",
+          "fechaPrestamo": "2025-03-01",
+          "fechaDevolucionPrevista": "2025-03-20"
+        }
+      ]
+    },
+    {
+      "titulo": "1984",
+      "anioPublicacion": 1949,
+      "categorias": [
+        "Distopía",
+        "Ciencia ficción"
+      ],
+      "autor": {
+        "nombre": "George Orwell",
+        "nacionalidad": "Británica"
+      },
+      "copias": [
+        {
+          "codigo": "N1984-1",
+          "estado": "disponible"
+        },
+        {
+          "codigo": "N1984-2",
+          "estado": "disponible"
+        }
+      ],
+      "prestamos": []
+    }
+  ]
+}

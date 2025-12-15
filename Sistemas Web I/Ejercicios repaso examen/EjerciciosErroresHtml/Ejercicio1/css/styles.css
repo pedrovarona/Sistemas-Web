@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+header {
+  height: 80px;
+  background: #222;
+  color: white;
+}
+
+
+li{
+    display: inline;
+}
+
+.card {
+  width: 300px;
+  height: 150px;
+  border: 1px solid black;
+  margin: 10px;
+  background-color: lightgray;
+
+}
+
+button {
+  background: blue;
+  color: white;
+}
+
+button:hover {
+  background: darkblue;
+}
+
+input:focus {
+  outline: none;
+  border: 1px solid red;
+}
+
+form {
+  width: 100%;
+}
