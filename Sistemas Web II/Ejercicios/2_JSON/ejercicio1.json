@@ -1,0 +1,30 @@
+
+# A corregir
+{
+    "nombre": "Juan",
+    "telefonos": [
+        {"movil": 612345678},
+        {"fijo": [912345678]}, false
+    ]
+    edad: 27, mayorDeEdad: "true",
+    "direccion": {
+        "calle": "Avenida Ciudad de Barcelona 23",
+        "ciudad": Madrid, null
+    },
+}
+
+
+
+# Corregido
+{
+    "nombre": "Juan",
+    "telefonos": [
+        {"movil": 612345678},
+        {"fijo": 912345678}, false
+    ],
+    "edad": 27, "mayorDeEdad": "true",
+    "direccion": {
+        "calle": "Avenida Ciudad de Barcelona 23",
+        "ciudad": "Madrid"
+    }
+}

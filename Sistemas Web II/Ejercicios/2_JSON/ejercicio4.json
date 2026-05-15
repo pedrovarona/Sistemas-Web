@@ -1,0 +1,66 @@
+# Enunciado
+# Realiza los siguientes pasos:
+# • Piensa en la información que podríamos guardar 
+# sobre diferentes películas
+# • Diseña el JSON Schema. Ten en cuenta las 
+# posibles restricciones y que campos son 
+# obligatorios.
+# • Crea al menos dos objetos JSON diferentes que 
+# sean válidos para el esquema anterior
+# Puedes usar páginas como Imdb
+# Tomatoes
+
+
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema#",
+    "$id": "http://example.com/schemas/movie.schema.json",
+    "title": "Peliculas",
+    "description": "Informacion de peliculas",
+    "type": "object",
+    "required": ["name", "year", "rating", "mainActors", "director"],
+    "properties": {
+        "name" : {
+            "type": "string",
+            "description": "Nombre de la pelicula"
+        },
+        "year" : {
+            "type" : "integer",
+            "description": "Año en que salio la pelicula"
+        },
+        "rating" : {
+            "type" : "number",
+            "description" : "Puntuacion de la pelicula"
+        },
+        "mainActors" : {
+            "type" : "array",
+            "minItems" : 1,
+            "items" : {
+                "type": "string",
+                "description": "nombre de los actores protagonistas"
+            }
+        },
+        "director": {
+            "type": "string",
+            "description" : "Nombre del director de la pelicula"
+        }
+    }
+}
+
+
+# Ejemplo 1
+{
+    "name":"Interestelar",
+    "year": 2013,
+    "rating": 7,
+    "mainActors": ["matthew McConaughey"],
+    "director": "Christopher Nolan"
+}
+
+# Ejemplo 2
+{
+    "name":"Inception",
+    "year": 2010,
+    "rating": 9,
+    "mainActors": ["Leonardo DiCaprio", "Tom Hardy"],
+    "director": "Christopher Nolan"
+}
