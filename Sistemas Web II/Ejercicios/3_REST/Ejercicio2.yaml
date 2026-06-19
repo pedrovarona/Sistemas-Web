@@ -1,0 +1,107 @@
+openapi: 3.1.0
+
+info:
+  title: API Cine
+  version: 1.0.0
+  description: API para gestionar la cartelera, salas, sesiones y entradas de un cine.
+
+paths:
+  /peliculas:
+    get:
+      summary: Obtener todas las películas
+      description: Devuelve la lista de películas disponibles en la cartelera.
+      responses:
+        "200":
+          description: Lista de películas obtenida correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Pelicula"
+    post:
+      summary: Agregar nueva pelicula
+      description: Agrega una nueva película a la cartelera.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PeliculaInput"
+      responses:
+        "201":
+          description: Película creada correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PeliculaInput"
+        "422":
+          description: Solicitud inválida, datos incorrectos
+/peliculas/{id}:
+  put:
+    summary: Modificar película
+    description: Modifica la información de una película de la cartelera.
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Identificador de la película
+        schema:
+          type: integer
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PeliculaInput"
+    responses:
+      "200":
+        description: Película modificada correctamente
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Pelicula"
+      "404":
+        description: Película no encontrada
+      "422":
+        description: Solicitud inválida, datos incorrectos
+
+
+
+
+components:
+  schemas:
+    Pelicula:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        titulo:
+          type: string
+          example: Interstellar
+        duracion:
+          type: integer
+          example: 142
+        genero:
+          type: string
+          example: Sci-Fi
+        edadRecomendada:
+          type: integer
+          example: 13
+
+    PeliculaInput:
+      type: object
+      properties:
+        titulo:
+          type: string
+          example: Interstellar
+        duracion:
+          type: integer
+          example: 142
+        genero:
+          type: string
+          example: Sci-Fi
+        edadRecomendada:
+          type: integer
+          example: 13

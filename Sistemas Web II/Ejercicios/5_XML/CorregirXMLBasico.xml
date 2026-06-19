@@ -1,0 +1,283 @@
+# Encontrar los errores en el XML y corregirlos
+# 1. XML Inicial
+<?xml version="1.0" encoding="UTF-8"?>
+
+<university>
+  <faculty name="Engineering" name="Information Systems">
+    <degree id="GIS-2025" active=yes>
+      <title>Grado en Ingeniería de Sistemas de Información</Title>
+
+      <subjects>
+        <subject code="SW2" semester="2">
+          <name>Sistemas Web II</name>
+          <teacher email=alvaro.sanchez@ceu.es>Álvaro Sánchez</teacher>
+          <description>
+            XML is used to represent & exchange structured information.
+          </description>
+          <topics>
+            <topic order="1">Introduction to XML</topic>
+            <topic order="2">DTD & XSD</topic>
+            <topic order="3">XPath, XQuery and XSLT</topic>
+          </topic>
+        </subject>
+
+        <subject code="DB2" semester="2">
+          <name>Bases de Datos II</name>
+          <teacher email="profesor.db@ceu.es">María López</teacher>
+          <description>Relational model vs XML</description>
+          <resources>
+            <resource type="pdf" url="https://example.com/db2.pdf"/>
+            <resource type="web" url="https://example.com/query?x=1&y=2" />
+          </resources>
+        </subject>
+      </subjects>
+
+      <students>
+        <student id="001">
+          <firstname>Ana</firstname>
+          <lastname>García</lastname>
+          <email>ana.garcia@example.com</email>
+        </student>
+
+        <student id="002">
+          <firstname>Javier</firstname>
+          <lastname>Ruiz</lastname>
+          <email>javier.ruiz@example.com</email>
+        </student id="002">
+
+        <student id="003">
+          <firstname>Lucía</firstname>
+          <lastname>Martín</lastname>
+          <email>lucia.martin@example.com</email>
+          <note approved="true" approved="false">Needs review</note>
+        </student>
+      </students>
+    </degree>
+  </faculty>
+</university>
+
+<metadata>
+  <created>2025-05-06</created>
+</metadata>
+
+
+# 1. XML Corregido
+<?xml version="1.0" encoding="UTF-8"?>
+<university>
+  <faculty name="Engineering">
+    <degree id="GIS-2025" active="yes">
+      <title>Grado en Ingeniería de Sistemas de Información</title>
+
+      <subjects>
+        <subject code="SW2" semester="2">
+          <name>Sistemas Web II</name>
+          <teacher email="correo_privado">Nombre Profesor</teacher>
+          <description>
+            XML is used to represent &amp; exchange structured information.
+          </description>
+          <topics>
+            <topic order="1">Introduction to XML</topic>
+            <topic order="2">DTD &amp; XSD</topic>
+            <topic order="3">XPath, XQuery and XSLT</topic>
+          </topics>
+        </subject>
+
+        <subject code="DB2" semester="2">
+          <name>Bases de Datos II</name>
+          <teacher email="profesor.db@ceu.es">María López</teacher>
+          <description>Relational model vs XML</description>
+          <resources>
+            <resource type="pdf" url="https://example.com/db2.pdf"/>
+            <resource type="web" url="https://example.com/query?x=1&amp;y=2" />
+          </resources>
+        </subject>
+      </subjects>
+
+      <students>
+        <student id="001">
+          <firstname>Ana</firstname>
+          <lastname>García</lastname>
+          <email>ana.garcia@example.com</email>
+        </student>
+
+        <student id="002">
+          <firstname>Javier</firstname>
+          <lastname>Ruiz</lastname>
+          <email>javier.ruiz@example.com</email>
+        </student>
+
+        <student id="003">
+          <firstname>Lucía</firstname>
+          <lastname>Martín</lastname>
+          <email>lucia.martin@example.com</email>
+          <note approved="true">Needs review</note>
+        </student>
+      </students>
+    </degree>
+  </faculty>
+</university>
+
+
+
+# 2. XML Inicial
+<?xml version="1.0" encoding="UTF-8"?>
+<onlineStore>
+  <catalog updated=2025-05-06>
+    <category id="c01" name="Books">
+      <product sku="BK-001" sku="BK-001-A">
+        <name>XML & Web Systems</name>
+        <price currency="EUR">39.95</price>
+        <stock available="true">25</stock>
+        <description>Book about XML, DTD, XSD and XPath</Description>
+        <tags>
+          <tag>xml</tag>
+          <tag>web</tag>
+          <tag>data exchange<tag/>
+        </tags>
+      </product>
+
+      <product sku="BK-002">
+        <name>Advanced Databases</name>
+        <price currency=EUR>45.50</price>
+        <stock available="false"/>
+        <description>
+          Includes examples such as 5 < 10 and queries with x=1&y=2
+        </description>
+        <author first-name="Ana" last name="García"/>
+      </product>
+    </category>
+
+    <category id="c02" name="Hardware">
+      <product sku="HW-001">
+        <name>USB-C Cable</name>
+        <price currency="EUR">9.99</price>
+        <stock available="true">120</stock>
+        <!-- Product with discount -- special offer -->
+        <discount percent="10">Summer sale</discount>
+      </Product>
+
+      <product sku="HW-002">
+        <name>Monitor 27"</name>
+        <price currency="EUR">199.99</price>
+        <stock available="true">15</stock>
+        <specifications>
+          <resolution>2560x1440</resolution>
+          <refresh-rate>144Hz</refresh-rate>
+          <ports>
+            <port type="HDMI">2</port>
+            <port type="DisplayPort">1</port>
+            <port type="USB-C">1</ports>
+        </specifications>
+      </product>
+    </category>
+  </catalog>
+
+  <orders>
+    <order id="o1001" status="paid">
+      <customer id="u01">
+        <name>Laura Pérez</name>
+        <email>laura.perez@example.com</email>
+      </customer>
+      <items>
+        <item sku="BK-001" quantity="1"/>
+        <item sku="HW-002" quantity="1">
+      </items>
+      <total currency="EUR">239.94</total>
+    </order>
+
+    <order id="o1002" status="pending">
+      <customer id="u02">
+        <name>Carlos Núñez</name>
+        <email>carlos.nunez@example.com</email>
+      <customer>
+      <items>
+        <item sku="BK-002" quantity="2"/>
+      </items>
+      <total currency="EUR">91.00</total>
+    </order>
+  </orders>
+</onlineStore>
+
+<audit>
+  <generatedBy>Sistemas Web II</generatedBy>
+</audit>
+
+# 2. XML Corregido
+<?xml version="1.0" encoding="UTF-8"?>
+<onlineStore>
+  <catalog updated="2025-05-06">
+    <category id="c01" name="Books">
+      <product sku="BK-001">
+        <name>XML &amp; Web Systems</name>
+        <price currency="EUR">39.95</price>
+        <stock available="true">25</stock>
+        <description>Book about XML, DTD, XSD and XPath</description>
+        <tags>
+          <tag>xml</tag>
+          <tag>web</tag>
+          <tag>data exchange</tag>
+        </tags>
+      </product>
+
+      <product sku="BK-002">
+        <name>Advanced Databases</name>
+        <price currency="EUR">45.50</price>
+        <stock available="false"/>
+        <description>
+          Includes examples such as 5 &lt; 10 and queries with x=1&amp;y=2
+        </description>
+        <author first-name="Ana" last-name="García"/>
+      </product>
+    </category>
+
+    <category id="c02" name="Hardware">
+      <product sku="HW-001">
+        <name>USB-C Cable</name>
+        <price currency="EUR">9.99</price>
+        <stock available="true">120</stock>
+        <!-- Product with discount special offer -->
+        <discount percent="10">Summer sale</discount>
+      </product>
+
+      <product sku="HW-002">
+        <name>Monitor 27</name>
+        <price currency="EUR">199.99</price>
+        <stock available="true">15</stock>
+        <specifications>
+          <resolution>2560x1440</resolution>
+          <refresh-rate>144Hz</refresh-rate>
+          <ports>
+            <port type="HDMI">2</port>
+            <port type="DisplayPort">1</port>
+            <port type="USB-C">1</port>
+          </ports>
+        </specifications>
+      </product>
+    </category>
+  </catalog>
+
+  <orders>
+    <order id="o1001" status="paid">
+      <customer id="u01">
+        <name>Laura Pérez</name>
+        <email>laura.perez@example.com</email>
+      </customer>
+      <items>
+        <item sku="BK-001" quantity="1"/>
+        <item sku="HW-002" quantity="1"/>
+      </items>
+      <total currency="EUR">239.94</total>
+    </order>
+
+    <order id="o1002" status="pending">
+      <customer id="u02">
+        <name>Carlos Núñez</name>
+        <email>carlos.nunez@example.com</email>
+      </customer>
+      <items>
+        <item sku="BK-002" quantity="2"/>
+      </items>
+      <total currency="EUR">91.00</total>
+    </order>
+  </orders>
+</onlineStore>

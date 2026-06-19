@@ -1,0 +1,241 @@
+# Tenemos un cine y queremos modernizarnos.
+# Queremos que la información de la cartelera y las sesiones esté 
+# accesible. Actualmente está disponible en nuestra página web, 
+# pero queremos que otras aplicaciones puedan trabajar con esa 
+# información de forma sencilla obteniéndola de nuestro servicio web 
+# para conseguir visibilidad. Aprovechando esta oportunidad 
+# queremos también utilizar este sistema para poder trabajar 
+# nosotros él.
+# ¿Nos podrías ayudar?
+# • Diseña un servicio web basado en REST
+# • Piensa en los diferentes recursos
+# • Define las diferentes rutas que necesitamos
+# • Piensa en las diferentes acciones que se pueden realizar
+# • Piensa en ejemplos de mensaje y los campos que deberían 
+# tener
+# • Considera los diferentes códigos de estado
+
+# Recursos:
+/peliculas
+/salas
+/sesiones
+/entradas
+
+# Rutas, acciones, mensaje y codigos:
+GET /peliculas (devuelve la lista de peliculas)
+# Codigo 200 OK
+# Mensaje (recibes):
+[
+  {
+    "id": 1,
+    "titulo": "Interstellar",
+    "duracion": 142,
+    "genero": "Sci-Fi",
+    "edadRecomendada": 13
+  },
+  {
+    "id": 2,
+    "titulo": "Inception",
+    "duracion": 148,
+    "genero": "Sci-Fi",
+    "edadRecomendada": 13
+  }
+]
+
+
+GET /peliculas/{id} (devuelve la pelicula que tenga ese id)
+# Codigo 200 OK
+# Codigo 404 Not Found (en caso de usar un id que no tiene pelicula)
+# Mensaje (recibes):
+{
+  "id": 1,
+  "titulo": "Interstellar",
+  "duracion": 142,
+  "genero": "Sci-Fi",
+  "edadRecomendada": 13
+}
+
+
+POST /peliculas (crear una pelicula)
+# Codigo 201 Created
+# Codigo 422 Unprocessable Entity (si falta el título o la duración no es válida p.ej)
+# Mensaje (envias):
+{
+  "titulo": "Interstellar",
+  "duracion": 142,
+  "genero": "Sci-Fi",
+  "edadRecomendada": 13
+}
+
+PUT /peliculas/{id} (modificar la pelicula que tenga ese id)
+# Codigo 200 OK
+# Codigo 404 Not Found (en caso de usar un id que no tiene pelicula)
+# Mensaje (envias):
+{
+  "titulo": "Interstellar",
+  "duracion": 169,
+  "genero": "Sci-Fi",
+  "edadRecomendada": 13
+}
+
+
+DELETE /peliculas/{id} (eliminar la pelicula que tenga ese id)
+# Codigo 200 OK
+# Codigo 404 Not Found (en caso de querer borrar una que no existe)
+
+
+
+GET /salas (mostrar las salas)
+# Codigo 200 OK
+# Mensaje (recibes):
+[
+    {
+        "idSala":1,
+        "nombre": "Sala 1",
+        "capacidad": 100,
+        "tipo": IMAX
+    },
+    {
+        "idSala":2,
+        "nombre": "Sala 2",
+        "capacidad": 50,
+        "tipo": IMAX
+    },
+]
+
+GET /salas/{id} (muestra la informacion de la sala con ese id)
+# Codigo 200 OK
+# Codigo 404 Not found (si no existe esa sala)
+# Mensaje (recibes):
+
+{
+    "idSala":1,
+    "nombre": "Sala 1",
+    "capacidad": 100,
+    "tipo": IMAX
+}
+
+
+
+POST /salas (crear una sala)
+# Codigo 201 Created
+# Codigo 422 Unprocessable Entity (si algun campo está mal rellenado)
+# Mensaje (mandas):
+
+{
+    "idSala":3,
+    "nombre": "Sala 3",
+    "capacidad": 120,
+    "tipo": IMAX
+}
+
+
+PUT /salas/{id} (editar informacion de una sala)
+# Codigo 200 OK
+# Codigo 404 Not found (si no existe esa sala)
+# Codigo 422 Unprocessable Entity (si algun campo está mal rellenado)
+# Mensaje (mandas):
+
+{
+    "idSala":3,
+    "nombre": "Sala 3",
+    "capacidad": 150,
+    "tipo": IMAX
+}
+
+
+DELETE /salas/{id} (eliminar una sala)
+# Codigo 200 OK
+# Codigo 404 Not found (si no existe esa sala)
+
+
+
+GET /sesiones (mostrar todas las sesiones)
+# Codigo 200 OK
+Mensaje (recibes):
+[
+    {
+        "idSesion": 1,
+        "idPelicula": 1,
+        "idSala": 1,
+        "fecha": "2026-05-20",
+        "precio": 8.5
+    },
+    {
+        "idSesion": 2,
+        "idPelicula": 2,
+        "idSala": 2,
+        "fecha": "2026-05-20",
+        "precio": 7
+    }
+]
+
+GET /sesiones/{id} (mostrar la informacion de la sesion con ese id)
+# Codigo 200 Ok
+# Codigo 404 Not Found (si no existe esa sesion)
+# Mensaje (recibes):
+{
+    "idSesion": 1,
+    "idPelicula": 1,
+    "idSala": 1,
+    "fecha": "2026-05-20",
+    "precio": 8.5
+}
+
+
+GET /peliculas/{id}/sesiones (informacion de las sesiones de una pelicula en concreto)
+# Codigo 200 Ok
+# Codigo 404 Not Found (si no existe esa pelicula o no hay sesion para esa pelicula)
+# Mensaje (recibes): 
+[
+    {
+        "idSesion": 1,
+        "idPelicula": 1,
+        "idSala": 1,
+        "fecha": "2026-05-20",
+        "precio": 8.5
+    }
+]
+
+GET /peliculas/{id}/sesiones/{id} (informacion de una sesion en concreto de una pelicula en concreto)
+# Codigo 200 Ok
+# Codigo 404 Not Found (si no existe esa pelicula o no hay sesion para esa pelicula, o si no existe la sesion para esa pelicula)
+# Mensaje (recibes):
+{
+    "idSesion": 1,
+    "idPelicula": 1,
+    "idSala": 1,
+    "fecha": "2026-05-20",
+    "precio": 8.5
+}
+
+
+POST /sesiones (creas una sesion)
+# Codigo 201 Created
+# Codigo 422 Unprocessable Entity (si algun campo está mal rellenado)
+# Mensaje (mandas):
+{
+    "idSesion": 4,
+    "idPelicula": 3,
+    "idSala": 2,
+    "fecha": "2026-05-21",
+    "precio": 8
+}
+
+
+PUT /sesiones/{id} (editar una sesion)
+# Codigo 200 OK
+# Codigo 422 Unprocessable Entity (si algun campo está mal rellenado)
+# Mensaje (mandas):
+{
+    "idSesion": 4,
+    "idPelicula": 2,
+    "idSala": 1,
+    "fecha": "2026-05-21",
+    "precio": 7
+}
+
+DELETE /sesiones/{id}
+# Codigo 200 OK
+# Codigo 404 Not Found (si no existe esa sesion)
+

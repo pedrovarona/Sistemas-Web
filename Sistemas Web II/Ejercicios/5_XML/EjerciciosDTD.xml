@@ -1,0 +1,193 @@
+
+# CREAR XML A PARTIR DE UN DTD DADO
+# DTD DADO:
+<!DOCTYPE library [
+  <!ELEMENT library (book+, magazine?)>
+
+  <!ELEMENT book (title, author, year, price?)>
+  <!ATTLIST book isbn CDATA #REQUIRED
+                 category (web|database|programming) #IMPLIED>
+
+  <!ELEMENT title (#PCDATA)>
+  <!ELEMENT author (#PCDATA)>
+  <!ELEMENT year (#PCDATA)>
+  <!ELEMENT price (#PCDATA)>
+
+  <!ELEMENT magazine (title, month)>
+  <!ATTLIST magazine code CDATA #REQUIRED>
+
+  <!ELEMENT month (#PCDATA)>
+]>
+# XML CREADO A PARTIR DEL DTD DADO:
+<library>
+    <book isbn= "ab1" category="web">
+        <title>Titulo 1</title>
+        <author>Yo</author>
+        <year>1999</year>
+        <price>12.1</price>
+    </book>
+    <book isbn= "ab2" category="database">
+        <title>Titulo 2</title>
+        <author>Yo no</author>
+        <year>2000</year>
+        <price>13.1</price>
+    </book>
+    <magazine code="codigornadom">
+        <title>Random xd</title>
+        <month>diciembre</month>
+    </magazine>
+
+
+</library>
+
+
+
+
+# DETECTAR ERRORES EN DTD + XML
+# DTD DADO:
+<!DOCTYPE restaurant [
+  <!ELEMENT restaurant (menu, staff?, reviews)>
+
+  <!ELEMENT menu (dish+)>
+  <!ELEMENT dish (name, price, ingredients?, allergens?)>
+  <!ATTLIST dish id CDATA #REQUIRED
+                 type (starter|main|dessert|drink) #REQUIRED
+                 available (yes|no) "yes">
+
+  <!ELEMENT name (#PCDATA)>
+  <!ELEMENT price (#PCDATA)>
+
+  <!ELEMENT ingredients (ingredient+)>
+  <!ELEMENT ingredient (#PCDATA)>
+
+  <!ELEMENT allergens (allergen*)>
+  <!ELEMENT allergen (#PCDATA)>
+
+  <!ELEMENT staff (employee+)>
+  <!ELEMENT employee (name, role)>
+  <!ATTLIST employee code CDATA #REQUIRED>
+
+  <!ELEMENT role (#PCDATA)>
+
+  <!ELEMENT reviews (review*)>
+  <!ELEMENT review (customer, rating, comment?)>
+  <!ATTLIST review verified (yes|no) #IMPLIED>
+
+  <!ELEMENT customer (#PCDATA)>
+  <!ELEMENT rating (#PCDATA)>
+  <!ELEMENT comment (#PCDATA)>
+]>
+# XML DADO:
+<?xml version="1.0" encoding="UTF-8"?>
+<restaurant>
+  <menu>
+    <dish id="d01" type="starter">
+      <name>Caesar Salad</name>
+      <price>8.50</price>
+      <ingredients>
+        <ingredient>Lettuce</ingredient>
+        <ingredient>Chicken</ingredient>
+      </ingredients>
+    </dish>
+
+    <dish id="d02" type="main" available="no">
+      <name>Grilled Salmon</name>
+      <price>18.00</price>
+      <allergens></allergens>
+    </dish>
+
+    <dish id="d03" type="dessert">
+      <name>Cheesecake</name>
+      <price>6.00</price>
+    </dish>
+
+    <dish id="d04" type="drink">
+      <name>Espresso</name>
+      <price>2.00</price>
+    </dish>
+  </menu>
+
+  <staff>
+    <employee code="e01">
+      <name>Ana</name>
+      <role>Chef</role>
+    </employee>
+
+    <employee code="e02">
+      <name>Luis</name>
+      <role>Waiter</role>
+    </employee>
+  </staff>
+
+  <reviews>
+    <review verified="yes">
+      <customer>Laura</customer>
+      <rating>5</rating>
+      <comment>Very good</comment>
+    </review>
+
+    <review verified="no">
+      <customer>Carlos</customer>
+      <rating>4</rating>
+    </review>
+  </reviews>
+</restaurant>
+
+
+
+
+
+# CREAR UN DTD A PARTIR DE UN XML DADO
+# XML DADO:
+<?xml version="1.0" encoding="UTF-8"?>
+<cinema>
+  <movie code="m01" genre="action">
+    <title>Fast Road</title>
+    <director>John Smith</director>
+    <year>2020</year>
+    <actors>
+      <actor>Ana López</actor>
+      <actor>Mark Brown</actor>
+    </actors>
+    <rating>7.5</rating>
+  </movie>
+
+  <movie code="m02" genre="drama">
+    <title>Silent Days</title>
+    <director>Laura Green</director>
+    <year>2019</year>
+    <actors>
+      <actor>Eva White</actor>
+    </actors>
+  </movie>
+
+  <movie code="m03">
+    <title>Unknown Sky</title>
+    <director>Peter Black</director>
+    <year>2022</year>
+    <actors>
+      <actor>Chris Blue</actor>
+      <actor>Marta Red</actor>
+      <actor>Leo Grey</actor>
+    </actors>
+    <rating>8.1</rating>
+  </movie>
+</cinema>
+
+# DTD CREADO A PARTIR DEL XML DADO:
+<!DOCTYPE cinema [
+<!ELEMENT cinema (movie+)>
+
+<!ELEMENT movie (title, director, year, actors, rating?)>
+<!ATTLIST movie code ID #REQUIRED>
+<!ATTLIST movie genre (action|drama|comedy) #IMPLIED>
+
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT director (#PCDATA)>
+<!ELEMENT year (#PCDATA)>
+<!ELEMENT actors (actor+)>
+<!ELEMENT actor (#PCDATA)>
+<!ELEMENT rating (#PCDATA)>
+]>
+
+
