@@ -1,0 +1,429 @@
+openapi: 3.1.0
+info:
+  title: API Cine
+  version: 0.3.0
+  description: API para películas, sesiones y salas
+
+servers:
+  - url: http://localhost:3000/api
+
+paths:
+  /peliculas:
+    get:
+      summary: Listar películas
+      description: Listar películas
+      parameters:
+        - $ref: '#/components/parameters/pagina'
+        - $ref: '#/components/parameters/numElementos'
+        - $ref: '#/components/parameters/title'
+        - $ref: '#/components/parameters/genre'
+        - $ref: '#/components/parameters/minRating'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/peliculasResponse'
+        "422":
+          description: parametros incorrectos
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mensaje'
+              example:
+                codigo: 422
+                texto: parametros incorrectos
+                descripcion: el parametro numelements debe estar entre 1 y 100
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mensaje'
+
+  /peliculas/{id}:
+    parameters:
+      - $ref: '#/components/parameters/id'
+    get:
+      summary: Obtener película
+      description: Obtener película
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pelicula'
+        "404":
+          description: pelicula no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mensaje'
+        "422":
+          description: parametros incorrectos
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mensaje'
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mensaje'
+
+  /sesiones:
+    get:
+      summary: Listar sesiones
+      description: Listar sesiones
+      parameters:
+        - $ref: '#/components/parameters/pagina'
+        - $ref: '#/components/parameters/numElementos'
+        - $ref: '#/components/parameters/date'
+        - $ref: '#/components/parameters/format'
+        - $ref: '#/components/parameters/sala'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sesionesResponse'
+
+    post:
+      summary: Crear sesión
+      description: Crear sesión
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sesionCrear'
+      responses:
+        "201":
+          description: Sesión creada correctmanete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mensaje'
+        "422":
+          description: Datos inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mensaje'
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mensaje'
+
+  /sesiones/{id}:
+    parameters:
+      - $ref: '#/components/parameters/id'
+    delete:
+      summary: Eliminar sesión
+      description: Eliminar sesión
+      responses:
+        "204":
+          description: sesion eliminada correctamente
+        "404":
+          description: sesion no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mensaje'
+        "422":
+          description: campo invalido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mensaje'
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mensaje'
+
+  /salas:
+    get:
+      summary: Listar salas
+      description: Listar salas
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/salasResponse'
+
+components:
+  parameters:
+    id:
+      name: id
+      in: path
+      required: true
+      description: Identificador
+      schema:
+        $ref: '#/components/schemas/id'
+
+    title:
+      name: title
+      in: query
+      required: false
+      description: Título
+      schema:
+        $ref: '#/components/schemas/title'
+
+    genre:
+      name: genre
+      in: query
+      required: false
+      description: Género
+      schema:
+        $ref: '#/components/schemas/genre'
+
+    date:
+      name: date
+      in: query
+      required: false
+      description: Fecha de la sesión
+      schema:
+        type: string
+        format: date
+
+    format:
+      name: format
+      in: query
+      required: false
+      description: Formato de la sesión
+      schema:
+        $ref: '#/components/schemas/formato'
+
+    pagina:
+      name: pagina
+      in: query
+      required: false
+      description: pagina a mostrar
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+
+    numElementos:
+      name: numElementos
+      in: query
+      required: false
+      description: numero de elementos a mostrar
+      schema:
+        type: integer
+        minimum: 1
+        default: 50
+        maximum: 100
+
+    sala:
+      name: sala
+      in: query
+      required: false
+      description: sala a mostrar de una sesion
+      schema:
+        type: string
+
+    minRating:
+      name: minRating
+      in: query
+      required: false
+      description: valoracion minima de la pelicula
+      schema:
+        type: number
+        minimum: 1
+        maximum: 10
+
+
+  schemas:
+    id:
+      type: integer
+
+    title:
+      type: string
+
+    year:
+      type: integer
+      minimum: 1888
+
+    genre:
+      type: string
+      enum: ["Action", "Adventure", "Animation", "Comedy", "Drama", "Fantasy", "Horror", "Romance", "Sci-Fi", "Thriller"]
+
+    formato:
+      type: string
+      enum: ["2D", "3D", "4D"]
+
+    peliculasResponse:
+      type: object
+      required: [results, next]
+      properties:
+        results: 
+          type: array
+          items: 
+            $ref: '#/components/schemas/peliculaCard'
+        next:
+          type:
+            - "null"
+            - string
+      additionalProperties: false
+
+    sesionesResponse:
+      type: object
+      required: [results, next]
+      properties:
+        results: 
+          type: array
+          items:
+            $ref: '#/components/schemas/sesion'
+        next:
+          type:
+            - "null"
+            - string
+        additionalProperties: false
+
+    salasResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/salareducido'
+
+    pelicula:
+      type: object
+      required: [id, title, year, genre, director, duration, synopsis]
+      properties:
+        id:
+          $ref: '#/components/schemas/id'
+        title:
+          $ref: '#/components/schemas/title'
+        year:
+          $ref: '#/components/schemas/year'
+        genre:
+          $ref: '#/components/schemas/genre'
+        director:
+          type: string
+        duration:
+          type: integer
+        synopsis:
+          type: string
+        actors:
+          type: array
+          items:
+            type: string
+        rating:
+          type: number
+      additionalProperties: false
+
+    peliculasCard:
+      type: object
+      required: [id, title, year, genre, rating, link]
+      properties:
+        id:
+          $ref: '#/components/schemas/id'
+        title:
+          $ref: '#/components/schemas/title'
+        year:
+          $ref: '#/components/schemas/year'
+        genre:
+          $ref: '#/components/schemas/genre'
+        rating:
+          type: number
+        link:
+          type: string
+      additionalProperties: false
+
+    sesion:
+      type: object
+      required: [id, idPelicula, sala, horaInicio, fecha, version, formato]
+      properties:
+        id:
+          $ref: '#/components/schemas/id'
+        idPelicula:
+          $ref: '#/components/schemas/id'
+        sala:
+          type: string
+        horaInicio:
+          type: string
+          format: time
+        fecha:
+          type: string
+          format: date
+        version:
+          type: string
+          enum: ["original", "doblada"]
+        formato:
+          $ref: '#/components/schemas/formato'
+      additionalProperties: false
+
+    sesionCrear:
+      type: object
+      required: [idPelicula, sala, horaInicio, fecha, version, formato]
+      properties:
+        idPelicula:
+          $ref: '#/components/schemas/id'
+        sala:
+          type: string
+        horaInicio:
+          type: string
+          format: time
+        fecha:
+          type: string
+          format: date
+        version:
+          type: string
+          enum: ["original", "doblada"]
+        formato:
+          $ref: '#/components/schemas/formato'
+      additionalProperties: false
+
+    sala:
+      type: object
+      required: [id, nombre, capacidad, tipo]
+      properties:
+        id:
+          $ref: '#/components/schemas/id'
+        nombre:
+          type: string
+        capacidad:
+          type: integer
+        tipo:
+          type: string
+          enum: ["normal", "premium", "imax"]
+        descripcion:
+          type: string
+      additionalProperties: false
+    
+    salaReducido:
+      type: object
+      required: [id, nombre,tipo]
+      properties:
+        id:
+          $ref: '#/components/schemas/id'
+        nombre:
+          type: string
+        tipo:
+          type: string
+          enum: ["normal", "premium", "imax"]
+      additionalProperties: false
+
+    mensaje:
+      type: object
+      required: [codigo, texto]
+      properties:
+        codigo:
+          type: integer
+        texto:
+          type: string
+        descripcion:
+          type: string
+
+
+

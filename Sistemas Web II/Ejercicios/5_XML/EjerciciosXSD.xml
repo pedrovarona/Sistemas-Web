@@ -1,0 +1,233 @@
+# CREAR UN XML A PARTIR DE UN XSD DADO:
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="store">
+    <xs:complexType>
+      <xs:sequence>
+
+        <xs:element name="product" minOccurs="1" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="name" type="xs:string"/>
+
+              <xs:element name="price">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:decimal">
+                      <xs:attribute name="currency" use="required">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:enumeration value="EUR"/>
+                            <xs:enumeration value="USD"/>
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+
+              <xs:element name="stock">
+                <xs:simpleType>
+                  <xs:restriction base="xs:integer">
+                    <xs:minInclusive value="0"/>
+                    <xs:maxInclusive value="999"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+
+              <xs:element name="tag" type="xs:string" minOccurs="0" maxOccurs="3"/>
+            </xs:sequence>
+
+            <xs:attribute name="id" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:pattern value="P[0-9][0-9][0-9]"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+
+            <xs:attribute name="category" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="book"/>
+                  <xs:enumeration value="tech"/>
+                  <xs:enumeration value="software"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+
+          </xs:complexType>
+        </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
+
+
+# XML CREADO A PARTIR DEL XSD DADO:
+<store>
+    <product id="P001" category="tech">
+        <name>Ordenador</name>
+        <price currency="EUR">499.99</price>
+        <stock>55</stock>
+        <tag>Tag</tag>
+    </product>
+    <product id="P002" category="software">
+        <name>Windows</name>
+        <price currency="EUR">19.75</price>
+        <stock>100</stock>
+        <tag>Tag</tag>
+    </product>
+</store>
+
+
+
+
+
+
+# TIPO EXAMEN:
+REGLAS:
+1. La raíz es platform.
+2. Dentro de platform hay uno o más course.
+3. Cada course tiene obligatoriamente los atributos code y level.
+4. code debe seguir el patrón C seguido de 3 números. Ej: C001.
+5. level solo puede ser basic, intermediate o advanced.
+6. Cada course contiene, en este orden:
+   title, hours, teacher, material opcional y assessment.
+7. title es texto.
+8. hours es entero entre 1 y 200.
+9. teacher tiene texto y un atributo obligatorio email.
+10. email debe seguir un patrón sencillo de correo.
+11. material, si aparece, puede repetirse como máximo 3 veces.
+12. Cada material es un elemento vacío con atributo obligatorio type.
+13. type solo puede ser pdf, video o link.
+14. assessment contiene solo uno de estos dos elementos: exam o project.
+15. exam tiene texto y un atributo obligatorio weight.
+16. project tiene texto y un atributo obligatorio weight.
+17. weight debe ser decimal entre 0 y 100.
+
+<platform>
+  <course code="C001" level="advanced">
+    <title>XML and Web Systems</title>
+    <hours>60</hours>
+    <teacher email="ana@example.com">Ana García</teacher>
+    <material type="pdf"/>
+    <material type="video"/>
+    <assessment>
+      <exam weight="70.5">Final exam</exam>
+    </assessment>
+  </course>
+
+  <course code="C002" level="basic">
+    <title>Introduction to APIs</title>
+    <hours>30</hours>
+    <teacher email="mark@example.com">Mark Smith</teacher>
+    <assessment>
+      <project weight="100">API project</project>
+    </assessment>
+  </course>
+</platform>
+
+
+# XSD:
+
+<xs:element name="platform">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="course" minOccurs="1" maxOccurs="unbound">
+                <xs:element name="title">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string"/>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="hours">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:integer">
+                            <xs:minInclusive value="1"/>
+                            <xs:maxInclusive value="200"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="teacher">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base:"xs:string">
+                                <xs:attribute name="email">
+                                    <xs:restriction base:"xs:string"/>
+                                </xs:attribute>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="material_opcional" minOccurs="0" maxOccurs="3">
+                    <xs:complexType>
+                        <xs:attribute name="type">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:enumeration value="pdf"/>
+                                    <xs:enumeration value="video"/>
+                                    <xs:enumeration value="link"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="assessment">
+                    <xs:complexType>
+                        <xs:choice>
+                            <xs:element name="exam">
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:string">
+                                            <xs:attribute name="weight" use="required">
+                                                <xs:restriction base:"xs:integer">
+                                                    <xs:minInclusive value="0"/>
+                                                    <xs:maxInclusive value="100"/>
+                                                </xs:restriction>
+                                            </xs:attribute>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="project">
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:string">
+                                            <xs:attribute name="weight" use="required">
+                                                <xs:restriction base:"xs:integer">
+                                                    <xs:minInclusive value="0"/>
+                                                    <xs:maxInclusive value="100"/>
+                                                </xs:restriction>
+                                            </xs:attribute>
+                                        </xs:extension>
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:choice>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:attribute name="code" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="C[0-9][0-9][0-9]"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="level" use="required">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="basic"/>
+                            <xs:enumeration value="intermediate"/>
+                            <xs:enumeration value="advanced"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:element>
